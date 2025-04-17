@@ -1,0 +1,25 @@
+<div class="jumbotron">
+  <h1 class="display-4">Bem-Vindo ao Blog do Edu!</h1>
+  <p class="lead">Este é um BLOG desenvolvido com Node.JS, + Express + MongoDB</p>
+  <hr class="my-4">
+  <p>Aqui você pode ler sobre as novidades no mundo da tecnologia.</p>
+  <a class="btn btn-primary btn-lg" href="/usuarios/registro" role="button">Crie uma Conta</a>
+</div>
+<hr>
+<h2>Postagens recentes: </h2>
+
+{{#each postagens}}
+    <div class="card">
+        <div class="card-body">
+            <h3>{{titulo}}</h3>
+            <h4>Descrição: </h4>
+            <p> {{descricao}}</p>
+           <a href="/postagem/{{slug}}"><button class="btn btn-success">Leia Mais</button> </a>
+            <hr>
+            <small>Categoria: {{categoria.nome}}</small>
+            <small>Data de Publicação: {{formatDateTime data}}</small>
+        </div>
+    </div>
+{{else}}    
+    <h5>Nenhuma postagem.</h5>
+{{/each}}
