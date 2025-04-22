@@ -132,7 +132,7 @@ app.get("/404", (req, res)=>{
     app.use('/usuarios', usuario)
 // outros
 const PORT = 8081
-app.listen(PORT, () => {
-    console.log("Servidor rodando na URL: http://localhost:8081");
-})
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Servidor rodando na URL: http://0.0.0.0:${PORT}`);
+});
 
