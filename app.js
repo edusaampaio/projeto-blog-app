@@ -16,6 +16,8 @@
     const Categoria = mongoose.model("categorias")
     const usuario = require('./routes/usuario')
     const passport = require("passport")
+    const findProcess = require('find-process');
+
     require("./config/auth")(passport)
 app.engine('handlebars', handlebars.engine({
     defaultLayout: 'main',
@@ -131,8 +133,28 @@ app.get("/404", (req, res)=>{
     app.use('/admin', admin)
     app.use('/usuarios', usuario)
 // outros
-const PORT = 8081
-app.listen(PORT, '0.0.0.0', () => {
-    console.log(`Servidor rodando na URL: http://0.0.0.0:${PORT}`);
+const PORT = 8081;
+// Utilizando o findProcess para encontrar uma porta 
+const killProcessUsingPort = (port) => {
+  findProcess('port', port)
+    .then((list) => {
+      if (list.length > 0) {
+        const pid = list[0].pid;
+        console.log(`Processo encontrado usando a porta ${port}, PID: ${pid}`);
+        process.kill(pid, 'SIGTERM'); 
+        console.log(`Processo com PID ${pid} terminado.`);
+      } else {
+        console.log(`Nenhum processo encontrado usando a porta ${port}.`);
+      }
+    })
+    .catch((err) => {
+      console.error('Erro ao tentar encontrar o processo:', err);
+    });
+};
+
+killProcessUsingPort(PORT);
+
+app.listen(PORT, () => {
+  console.log(`Servidor rodando na porta ${PORT}`);
 });
 
