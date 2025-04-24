@@ -64,11 +64,13 @@ app.engine('handlebars', handlebars.engine({
     
     app.set('view engine', 'handlebars')
     //Mongoose
-    mongoose.connect("mongodb://localhost/blogapp").then(()=>{
+    mongoose.connect("mongodb://mongo-db:27017/blogapp")
+  .then(() => {
     console.log('Conectado ao mongo');
-     }) .catch((err)=>{
-     console.log('Erro ao se conectar: '+ err);
-     })
+  })
+  .catch((err) => {
+    console.log('Erro ao se conectar: ' + err);
+  });
     // public
      //app.set('views', path.join(__dirname, 'views'));
      app.use(express.static(path.join(__dirname,'public')));
