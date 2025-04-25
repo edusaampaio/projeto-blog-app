@@ -17,6 +17,7 @@ const Categoria = mongoose.model("categorias")
 const usuario = require('./routes/usuario')
 const passport = require("passport")
 const findProcess = require('find-process');
+const { estaLogado } = require("./helpers/isAuthenticated");
 
 require("./config/auth")(passport)
 
@@ -83,14 +84,14 @@ mongoose.connect('mongodb://127.0.0.1:27017/blogapp', {
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Rotas
-app.get('/', (req, res) => {
+app.get('/', estaLogado, (req, res) => {
     Postagem.find().lean().populate("categoria").sort({ data: "desc" }).then((postagens) => {
-        res.render("index", { postagens: postagens })
+      res.render("index", { postagens: postagens });
     }).catch((err) => {
-        req.flash("error_msg", "Houve um erro interno!")
-        res.redirect("/")
-    })
-})
+      req.flash("error_msg", "Houve um erro interno!");
+      res.redirect("/404");
+    });
+  });
 
 app.get("/postagem/:slug", (req, res) => {
     Postagem.findOne({ slug: req.params.slug }).lean().then((postagem) => {
