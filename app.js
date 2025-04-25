@@ -71,11 +71,15 @@ app.engine('handlebars', handlebars.engine({
 app.set('view engine', 'handlebars')
 
 //Mongoose
-mongoose.connect("mongodb://localhost/blogapp").then(() => {
-    console.log('Conectado ao mongo');
+mongoose.connect('mongodb://127.0.0.1:27017/blogapp', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}).then(() => {
+    console.log('Conectado ao MongoDB');
 }).catch((err) => {
-    console.log('Erro ao se conectar: ' + err);
-})
+    console.log('Erro ao se conectar:', err);
+});
+
 
 // public
 app.use(express.static(path.join(__dirname, 'public')));
