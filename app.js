@@ -18,7 +18,6 @@ const usuario = require('./routes/usuario')
 const passport = require("passport")
 const findProcess = require('find-process');
 const { estaLogado } = require("./helpers/isAuthenticated");
-
 require("./config/auth")(passport)
 
 app.engine('handlebars', handlebars.engine({
@@ -33,11 +32,9 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }))
-
 app.use(passport.initialize())
 app.use(passport.session())
 app.use(flash())
-
 // Middleware  
 app.use((req, res, next) => {
     res.locals.success_msg = req.flash("success_msg")
