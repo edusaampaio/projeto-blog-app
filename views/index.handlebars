@@ -8,10 +8,16 @@
     <p class="lead">Este é um BLOG desenvolvido com Node.JS, + Express + MongoDB</p>
     <hr class="my-4">
     <p>Aqui você pode ler sobre as novidades no mundo da tecnologia.</p>
-    <a class="btn btn-primary btn-lg" href="/usuarios/registro" role="button">Crie uma Conta</a>
+    {{#if user}}
+  <button class="btn btn-success btn-lg" onclick="rolarParaPostagens()">Leia Mais</button>
+{{else}}
+  <a class="btn btn-primary btn-lg" href="/usuarios/registro" role="button">Crie uma Conta</a>
+{{/if}}
+
+
 </div>
 <hr>
-<h2>Postagens recentes: </h2>
+<h2 id="postagens">Postagens recentes: </h2>
 
 {{#each postagens}}
     <div class="card">
@@ -28,3 +34,11 @@
 {{else}}    
     <h5>Nenhuma postagem.</h5>
 {{/each}}
+<script>
+  function rolarParaPostagens() {
+    const secao = document.getElementById('postagens');
+    if (secao) {
+      secao.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+</script>
