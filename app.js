@@ -72,8 +72,6 @@ app.set('view engine', 'handlebars')
 
 //Mongoose
 mongoose.connect('mongodb://127.0.0.1:27017/blogapp', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
 }).then(() => {
     console.log('Conectado ao MongoDB');
 }).catch((err) => {
