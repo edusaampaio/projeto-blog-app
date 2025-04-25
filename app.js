@@ -143,7 +143,7 @@ const PORT = 8081;
 const killProcessUsingPort = async (port) => {
     try {
         const list = await findProcess('port', port);
-        console.log('Processos encontrados:', list); // Adiciona um log aqui
+        console.log('Processos encontrados:', list); 
         if (list.length > 0) {
             const pid = list[0].pid;
             console.log(`Processo encontrado usando a porta ${port}, PID: ${pid}`);
@@ -157,7 +157,7 @@ const killProcessUsingPort = async (port) => {
     }
 };
 
-// Função assíncrona para iniciar o servidor após matar o processo (se necessário)
+// Função assíncrona para iniciar o servidor após matar o processo 
 const startServer = async () => {
     await killProcessUsingPort(PORT);
     app.listen(PORT, () => {
